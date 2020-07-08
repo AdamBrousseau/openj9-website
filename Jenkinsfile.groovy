@@ -35,7 +35,7 @@ timeout(time: 3, unit: 'HOURS') {
                     checkout scm
 
                     docker.build "openj9-website"
-                    docker.image("openj9-website").inside() {
+                    withDockerContainer(image: "openj9-website") {
                     	echo "hello"
                     	sh "pwd && ls -al"
                     }
