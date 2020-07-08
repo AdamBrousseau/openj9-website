@@ -2,9 +2,9 @@
 # docker run -it openj9-website
 FROM ubuntu:16.04
 
-RUN apt update && apt install -y curl npm git
+RUN apt-get update && apt-get install -y curl npm git
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt install -y nodejs
+RUN apt-get install -y nodejs
 RUN npm install -g gatsby-cli
 RUN git config --global user.email "genie-openj9@eclipse.com" \
 && git config --global user.name "genie-openj9"
