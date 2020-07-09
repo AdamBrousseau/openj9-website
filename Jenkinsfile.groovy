@@ -43,7 +43,6 @@ timeout(time: 3, unit: 'HOURS') {
                     }
                 }
             } finally {
-                sleep(600)
                 cleanWs()
                 sh "docker system prune -af"
             }
