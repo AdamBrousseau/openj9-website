@@ -44,7 +44,7 @@ timeout(time: 3, unit: 'HOURS') {
                         git merge origin/vnext
                         """
                         sh "npm install"
-                        sh "nps run deploy"
+                        sh "npm run deploy"
                     }
                 }
             } finally {
