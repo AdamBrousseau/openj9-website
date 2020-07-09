@@ -34,13 +34,15 @@ timeout(time: 3, unit: 'HOURS') {
                 stage('Docker Build') {
                     checkout scm
 
-                    docker.build "openj9-website"
-                    withDockerContainer(image: "openj9-website") {
-                    	echo "hello"
-                    	sh "pwd && ls -al"
+                    my_image = docker.build "openj9-website"
+
+                    my_image.inside {
+                        echo "hello"
+                        sh "pwd && ls -al"
                     }
                 }
             } finally {
+                sleep(600)
                 cleanWs()
                 sh "docker system prune -af"
             }
