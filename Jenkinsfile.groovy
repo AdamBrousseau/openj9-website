@@ -37,8 +37,9 @@ timeout(time: 3, unit: 'HOURS') {
                     my_image = docker.build "openj9-website"
 
                     my_image.inside {
-                        echo "hello"
-                        sh "pwd && ls -al"
+                        sh "git pull"
+                        sh "npm install"
+                        sh "nps run deploy"
                     }
                 }
             } finally {
