@@ -37,7 +37,12 @@ timeout(time: 3, unit: 'HOURS') {
                     my_image = docker.build "openj9-website"
 
                     my_image.inside {
-                        sh "git pull"
+                        sh """
+                        git status
+                        git fetch origin
+                        git checkout -B vnext
+                        git merge origin/vnext
+                        """
                         sh "npm install"
                         sh "nps run deploy"
                     }
