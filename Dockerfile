@@ -11,4 +11,4 @@ RUN git config --global user.email "genie-openj9@eclipse.com" \
 && git clone -b vnext https://github.com/eclipse/openj9-website.git
 
 WORKDIR /openj9-website
-ENTRYPOINT git pull && /bin/bash
+#ENTRYPOINT git pull && /bin/bash
