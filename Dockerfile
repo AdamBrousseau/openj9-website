@@ -7,6 +7,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 && apt-get install -y nodejs \
 && npm install -g gatsby-cli \
 && mkdir /.npm \
+&& touch /.gitconfig \
 && chown -R 1001:1001 /.npm /.gitconfig
 RUN git config --global user.email "genie-openj9@eclipse.com" \
 && git config --global user.name "genie-openj9"
