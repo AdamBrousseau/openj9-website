@@ -7,7 +7,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 && apt-get install -y nodejs \
 && npm install -g gatsby-cli
 RUN groupadd -r jenkins \
-&& useradd -r -u 1001 -g jenkins jenkins \
+&& useradd -rm -u 1001 -g jenkins jenkins \
 && chown -R jenkins:jenkins /home/jenkins
 RUN git config --global user.email "genie-openj9@eclipse.com" \
 && git config --global user.name "genie-openj9"
