@@ -5,13 +5,11 @@ FROM ubuntu:16.04
 RUN apt-get update && apt-get install -y curl npm git
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 && apt-get install -y nodejs \
-&& npm install -g gatsby-cli \
-&& mkdir /.npm \
-&& touch /.gitconfig \
-&& chown -R 1001:1001 /.npm /.gitconfig
+&& npm install -g gatsby-cli
+RUN groupadd -r jenkins && useradd -r -g jenkins jenkins
 RUN git config --global user.email "genie-openj9@eclipse.com" \
 && git config --global user.name "genie-openj9"
 #&& git clone -b vnext https://github.com/eclipse/openj9-website.git
-
+USER jenkins
 #WORKDIR /openj9-website
 #ENTRYPOINT git pull && /bin/bash
