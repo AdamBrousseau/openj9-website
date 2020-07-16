@@ -40,8 +40,6 @@ timeout(time: 3, unit: 'HOURS') {
                     stage('Website Build') {
                         my_image.inside {
                             sh """
-                            pwd
-                            id
                             git config --global user.email "genie-openj9@eclipse.com"
                             git config --global user.name "genie-openj9"
                             git status
