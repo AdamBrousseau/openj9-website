@@ -29,34 +29,39 @@ SSH_CREDENTIAL_ID = 'git.eclipse.org-bot-ssh'
 
 timeout(time: 3, unit: 'HOURS') {
     timestamps {
-        node('hw.arch.x86&&sw.tool.docker') {
-            try {
-                stage('Docker Build') {
-                    checkout scm
-
-                    my_image = docker.build "openj9-website"
-
-                    my_image.inside {
-                        sh """
-                        pwd
-                        whoami
-                        id
-                        git config --global user.email "genie-openj9@eclipse.com"
-                        git config --global user.name "genie-openj9"
-                        git status
-                        git fetch origin
-                        git checkout -B vnext
-                        git merge origin/vnext
-                        """
-                        sh "npm install"
-                        sshagent(credentials:["${SSH_CREDENTIAL_ID}"]) {
-                            sh "npm run deploy"
+        stage('Queue') {
+            node('hw.arch.x86&&sw.tool.docker') {
+                try {
+                    stage('Checkout') {
+                        checkout scm
+                    }
+                    def my_image
+                    stage('Docker Build') {
+                        my_image = docker.build "openj9-website"
+                    }
+                    stage('Website Build') {
+                        my_image.inside {
+                            sh """
+                            pwd
+                            whoami
+                            id
+                            git config --global user.email "genie-openj9@eclipse.com"
+                            git config --global user.name "genie-openj9"
+                            git status
+                            git fetch origin
+                            git checkout -B vnext
+                            git merge origin/vnext
+                            """
+                            sh "npm install"
+                            sshagent(credentials:["${SSH_CREDENTIAL_ID}"]) {
+                                sh "npm run deploy"
+                            }
                         }
                     }
+                } finally {
+                    cleanWs()
+                    sh "docker system prune -af"
                 }
-            } finally {
-                cleanWs()
-                sh "docker system prune -af"
             }
         }
     }
