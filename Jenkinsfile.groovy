@@ -20,11 +20,8 @@
  * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
  *******************************************************************************/
 
-GITHUB_REPO = 'https://github.com/eclipse/openj9-website.git'
-ECLIPSE_REPO = 'ssh://genie.openj9@git.eclipse.org:29418/www.eclipse.org/openj9.git'
-BRANCH = 'staging'
-GITHUB_DIR = 'github_repo'
-ECLIPSE_DIR = 'staging_repo'
+REPO = 'ssh://genie.openj9@git.eclipse.org:29418/www.eclipse.org/openj9.git'
+BRANCH = (params.BRANCH) ?: 'staging'
 SSH_CREDENTIAL_ID = 'git.eclipse.org-bot-ssh'
 
 timeout(time: 3, unit: 'HOURS') {
@@ -53,8 +50,10 @@ timeout(time: 3, unit: 'HOURS') {
                             git merge origin/vnext
                             """
                             sh "npm install"
-                            sshagent(credentials:["${SSH_CREDENTIAL_ID}"]) {
-                                sh "npm run deploy"
+                            stage('Website Deploy') {
+                                sshagent(credentials:["${SSH_CREDENTIAL_ID}"]) {
+                                    sh "REPO=${REPO} BRANCH=${BRANCH} npm run deploy"
+                                }
                             }
                         }
                     }

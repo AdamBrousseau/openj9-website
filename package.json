@@ -7,7 +7,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "deploy": "gatsby clean && gatsby build --prefix-paths && mkdir public/tools && cp tools/* public/tools && gh-pages -b staging -r ssh://genie.openj9@git.eclipse.org:29418/www.eclipse.org/openj9.git -d public",
+    "deploy": "gatsby clean && gatsby build --prefix-paths && mkdir public/tools && cp tools/* public/tools && gh-pages -b $BRANCH -r $REPO -d public",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
