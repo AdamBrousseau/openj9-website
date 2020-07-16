@@ -27,8 +27,7 @@ SSH_CREDENTIAL_ID = 'git.eclipse.org-bot-ssh'
 timeout(time: 3, unit: 'HOURS') {
     timestamps {
         stage('Queue') {
-            //node('hw.arch.x86 && sw.tool.docker && sw.os.ubuntu') {
-            node('ub16x64j91') {
+            node('hw.arch.x86 && sw.tool.docker && sw.os.ubuntu') {
                 try {
                     stage('Checkout') {
                         checkout scm
