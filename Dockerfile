@@ -8,6 +8,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 && npm install -g gatsby-cli
 RUN groupadd -r jenkins \
 && useradd -rm -u 1001 -g jenkins jenkins \
+&& mkdir -p /home/jenkins/.ssh \
+&& echo "Host git.eclipse.org*\n\tStrictHostKeyChecking no\n" > /home/jenkins/.ssh/config \
 && chown -R jenkins:jenkins /home/jenkins
 RUN git config --global user.email "genie-openj9@eclipse.com" \
 && git config --global user.name "genie-openj9"
