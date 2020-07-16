@@ -49,7 +49,9 @@ timeout(time: 3, unit: 'HOURS') {
                         git merge origin/vnext
                         """
                         sh "npm install"
-                        sh "npm run deploy"
+                        sshagent(credentials:["${SSH_CREDENTIAL_ID}"]) {
+                            sh "npm run deploy"
+                        }
                     }
                 }
             } finally {
