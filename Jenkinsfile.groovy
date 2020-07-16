@@ -30,7 +30,8 @@ SSH_CREDENTIAL_ID = 'git.eclipse.org-bot-ssh'
 timeout(time: 3, unit: 'HOURS') {
     timestamps {
         stage('Queue') {
-            node('hw.arch.x86&&sw.tool.docker') {
+            //node('hw.arch.x86&&sw.tool.docker') {
+            node('ub16x64j91') {
                 try {
                     stage('Checkout') {
                         checkout scm
@@ -59,7 +60,7 @@ timeout(time: 3, unit: 'HOURS') {
                     }
                 } finally {
                     cleanWs()
-                    sh "docker system prune -af"
+                    //sh "docker system prune -af"
                 }
             }
         }
